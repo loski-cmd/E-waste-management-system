@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Waste Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;400&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background: linear-gradient(135deg, #e0f7fa 0%, #e8f5e9 100%);
+            min-height: 100vh;
+        }
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 60vh;
+            background: linear-gradient(120deg, #32CD32 0%, #228B22 100%);
+            color: #fff;
+            text-align: center;
+            border-radius: 0 0 40px 40px;
+            box-shadow: 0 8px 32px rgba(34,139,34,0.15);
+            padding: 4rem 2rem 3rem 2rem;
+        }
+        .hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .cta-btn {
+            background: #fff;
+            color: #228B22;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(34,139,34,0.08);
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s, transform 0.2s;
+            text-decoration: none;
+        }
+        .cta-btn:hover {
+            background: #32CD32;
+            color: #fff;
+            transform: translateY(-2px) scale(1.04);
+        }
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0 2rem 0;
+        }
+        .feature-card {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(34,139,34,0.08);
+            padding: 2rem 1.5rem;
+            max-width: 320px;
+            min-width: 260px;
+            text-align: center;
+            transition: box-shadow 0.2s, transform 0.2s;
+            opacity: 0;
+            transform: translateY(40px) scale(0.98);
+            transition: opacity 0.7s cubic-bezier(.4,0,.2,1), transform 0.7s cubic-bezier(.4,0,.2,1);
+        }
+        .feature-card:hover {
+            box-shadow: 0 8px 32px rgba(34,139,34,0.18);
+            transform: translateY(-4px) scale(1.03);
+        }
+        .feature-card.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #32CD32;
+        }
+        .feature-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #228B22;
+        }
+        .feature-desc {
+            font-size: 1rem;
+            color: #444;
+        }
+        .about-section {
+            background: #f5f5f5;
+            border-radius: 18px;
+            padding: 2.5rem 1.5rem;
+            margin: 2rem auto 3rem auto;
+            max-width: 900px;
+            box-shadow: 0 2px 12px rgba(34,139,34,0.06);
+            text-align: center;
+        }
+        .about-section h2 {
+            color: #228B22;
+            font-family: 'Montserrat', sans-serif;
+            margin-bottom: 1rem;
+        }
+        .about-section p {
+            color: #333;
+            font-size: 1.1rem;
+        }
+        @media (max-width: 900px) {
+            .features {
+                flex-direction: column;
+                align-items: center;
+            }
+            .hero-content {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            .hero-illustration {
+                width: 60vw;
+                max-width: 400px;
+            }
+        }
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .feature-card {
+                padding: 1.2rem 0.7rem;
+            }
+        }
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+        .hero-illustration {
+            max-width: 340px;
+            min-width: 220px;
+            width: 30vw;
+        }
+    </style>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Feature card animation on scroll
+        const cards = document.querySelectorAll('.feature-card');
+        function animateCards() {
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 60) {
+                    card.classList.add('visible');
+                }
+            });
+        }
+        animateCards();
+        window.addEventListener('scroll', animateCards);
+    });
+    </script>
+</head>
+<body>
+    <header>
+        <h1 style="font-family: 'Montserrat', sans-serif; font-size: 1.5rem; color: #228B22;">E-Waste Management System</h1>
+        <nav style="display: flex; gap: 1rem;">
+            <a href="register.php" class="cta-btn">Register</a>
+            <a href="userLogin.php" class="cta-btn">User Login</a>
+            <a href="adminLogin.php" class="cta-btn">Admin Login</a>
+            <a href="collectorLogin.php" class="cta-btn">Collector Login</a>
+        </nav>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="hero-content" style="justify-content: center;">
+                <div>
+                    <h1>Proper E-Waste Disposal Made Easy</h1>
+                    <p>Join our mission to create a cleaner, greener future. Schedule pickups, track your e-waste, and contribute to a sustainable environment with just a few clicks.</p>
+                    <div class="cta-buttons">
+                        <a href="register.php" class="cta-btn">Get Started</a>
+                        <a href="#features" class="cta-btn" style="background:#32CD32; color:#fff;">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="features" class="features">
+            <div class="feature-card">
+                <span class="feature-icon"><i class="ph ph-recycle"></i></span>
+                <div class="feature-title">Easy Pickup Scheduling</div>
+                <div class="feature-desc">Book e-waste pickups at your convenience. Our collectors will handle the rest, ensuring safe and responsible disposal.</div>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon"><i class="ph ph-chart-bar"></i></span>
+                <div class="feature-title">Track & Analyze</div>
+                <div class="feature-desc">Monitor your e-waste contributions and see your positive impact on the environment with detailed analytics.</div>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon"><i class="ph ph-users"></i></span>
+                <div class="feature-title">For Everyone</div>
+                <div class="feature-desc">Whether you're a household, business, or collector, our platform is designed for all. Simple, secure, and accessible.</div>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon"><i class="ph ph-shield-check"></i></span>
+                <div class="feature-title">Secure & Reliable</div>
+                <div class="feature-desc">Your data and pickups are handled with the utmost security and reliability. Trust us for a seamless experience.</div>
+            </div>
+        </section>
+        <section class="about-section">
+            <h2>Why E-Waste Management Matters</h2>
+            <p>
+                E-waste is one of the fastest-growing waste streams in the world. Improper disposal can harm our environment and health. Our platform empowers you to make a difference—responsibly recycle electronics, reduce pollution, and help build a sustainable future for generations to come.
+            </p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 E-Waste Management System. All rights reserved.</p>
+    </footer>
+</body>
+</html>

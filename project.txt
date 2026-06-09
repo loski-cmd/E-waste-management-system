@@ -1,0 +1,84 @@
+E waste Web App Project 
+using php html js css
+using mysql workbench database > host-localhost DbName: ewaste  username :root   pasword: loski
+ strictly PDO synthax
+    creating user account where everyone registers and has section for putting their role in the form
+    index page with login ( an admin login, collector login and user login)
+    user functionality ()
+        requesting waste pickup (specify type, weight in kg)-show simple success notification
+        users can also view summaries in form of charts and tables of their waste collection history
+        according to the waste type.
+    
+    admin functionality (an admin page which does the details below)
+        view user collection requests
+        allocates waste collection to collectors
+        assign if complete once completed by collectors
+        an analytics dashboard used as summaries ( charts of type of wastes , monthly collection) of waste collection history
+
+    collector functionality (a collector page which does the details below)
+        a collector can be able to view assigned collection requests from admin
+        a collector can be able to fill in the data of waste collected weight and type
+        a collector can be able to view summaries of their collection history
+I have to ensure each page has its own instance connection to the database, whenever db connection is needed
+instead of using a db_connect.php. 
+
+the landing page should be index.html with four buttons on the header section(leading to register.php , 
+userLogin.php ,adminLogin.php, collectorLogin.php ). register.php should be a form enabling new users(admin, regular users, collectors)
+ to register with a notification"sucessfully registered" and  a redirect to respective php login files . The registration form should
+  insert the details into a
+ table created using this Query 
+(CREATE TABLE `user` (
+    `user_id` INT AUTO_INCREMENT PRIMARY KEY,
+    `email` VARCHAR(100) NOT NULL UNIQUE,
+    `password_hash` VARCHAR(255) NOT NULL,
+    `full_name` VARCHAR(100) NOT NULL,
+    `address` TEXT NOT NULL,
+    `phone` VARCHAR(20) NOT NULL,
+    `role` ENUM('user', 'collector', 'admin') NOT NULL DEFAULT 'user',
+    `permission_level` ENUM('basic', 'super') DEFAULT 'basic',
+    `vehicle_type` VARCHAR(50),
+    `license_number` VARCHAR(20),
+    `status` ENUM('active', 'inactive', 'on_duty') DEFAULT 'active',
+    `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `last_login` DATETIME
+);
+). userLogin.php is for the user loging into the system by entering their email and passsword, it should read from
+ the users table to confirm if the user exists. upon successful login user is directed to userdashboard.php.
+ userdashboard.php is a single page with two functionalities one being a form for requesting pickups, with a notification
+  showing "successfuly requested" in green lasting 5 seconds on the screen. the other functionality ,a table
+   showing request history of the specific user and they can be able to see analytics in achart . the pickup table is as shown
+   (CREATE TABLE `pickup` (
+    `pickup_id` INT AUTO_INCREMENT PRIMARY KEY,
+    `user_id` INT NOT NULL,
+    `collector_id` INT,
+    `scheduled_date` DATETIME NOT NULL,
+    `status` ENUM('pending', 'assigned', 'completed', 'cancelled') DEFAULT 'pending',
+    `ewaste_type` ENUM('electronics', 'batteries', 'appliances', 'other') NOT NULL,
+    `weight_kg` DECIMAL(5,2),
+    `pickup_address` TEXT,
+    `notes` TEXT,
+    `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `completed_at` DATETIME,
+    FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
+    FOREIGN KEY (`collector_id`) REFERENCES `user` (`user_id`)
+);
+
+    
+);. implement the user functions above first before we proceed to admin functionality. include a single js file for
+all required js functionality. add css of your choice with forest green colour theme. link all files correctly since
+they all will be in a single directory.
+adminLogin.php is for the admin loging into the system by entering their email and password, it should read from the
+user table to confirm if the admin exists. upon successful login admin is directed to adminDashboard.php.
+adminDashboard.php is a single page with four functionalities one being a table showing all user collection requests,
+another being a table showing all completed pickups, another being a table showing all pickups. the other admin functionality 
+is can also allocate or assign pickups to collectors . the third functionality is they can assign status of request
+if complete once completed by collectors.The fouth one is an analytics dashboard used as summaries 
+( charts of type of wastes , monthly collection) of waste collection history.
+Implement the admin functions above after the user functions. include a single js file for all required js functionality.
+link all files correctly since they all will be in a single directory.
+
+collectorLogin.php is for the collector loging into the system by entering their email and password, it should read from
+the user table to confirm if the collector exists. upon successful login collector is directed to collectorDashboard.php.
+collectorDashboard.php is a single page with three functionalities one being a table showing  assigned collection requests 
+from admin. the second one  a collector can be able to fill in the data of waste collected weight and type.
+The final one  a collector can be able to view summaries of their collection history.
